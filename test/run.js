@@ -2,12 +2,17 @@
 const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
-const { add, total } = require('../src/math');
+const { add, total, discount } = require('../src/math');
 
 const tests = {
   'math.adds two numbers': () => assert.strictEqual(add(2, 3), 5),
   'math.totals a cart': () => assert.strictEqual(total([{ price: 5, qty: 2 }, { price: 1, qty: 3 }]), 13),
   'math.totals an empty cart': () => assert.strictEqual(total([]), 0),
+  'math.applies a discount': () => {
+    assert.strictEqual(discount(10, 20), 8);
+    assert.strictEqual(discount(10, 0), 10);
+    assert.strictEqual(discount(0, 20), 0);
+  },
 };
 
 const results = Object.entries(tests).map(([name, fn]) => {

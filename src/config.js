@@ -2,4 +2,5 @@
 module.exports = {
   port: Number(process.env.PORT || 3000),
   greeting: process.env.APP_GREETING || 'Hello',
+  discountPercent: Number(process.env.DISCOUNT_PERCENT || 0),
 };
