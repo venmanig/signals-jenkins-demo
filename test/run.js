@@ -13,6 +13,10 @@ const tests = {
     assert.strictEqual(discount(10, 0), 10);
     assert.strictEqual(discount(0, 20), 0);
   },
+  'math.applies a 10% discount': () => {
+    assert.strictEqual(discount(10, 10), 9);
+    assert.strictEqual(discount(0, 10), 0);
+  },
 };
 
 const results = Object.entries(tests).map(([name, fn]) => {
