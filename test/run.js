@@ -17,6 +17,21 @@ const tests = {
     assert.strictEqual(discount(10, 10), 9);
     assert.strictEqual(discount(0, 10), 0);
   },
+  'config.defaults the discount to 10%': () => {
+    // config reads the environment once, on load, so reload it from a fresh module cache.
+    const configPath = require.resolve('../src/config');
+    const hadRate = Object.prototype.hasOwnProperty.call(process.env, 'DISCOUNT_PERCENT');
+    const savedRate = process.env.DISCOUNT_PERCENT;
+    try {
+      delete process.env.DISCOUNT_PERCENT;
+      delete require.cache[configPath];
+      const config = require('../src/config');
+      assert.strictEqual(config.discountPercent, 10);
+    } finally {
+      if (hadRate) process.env.DISCOUNT_PERCENT = savedRate;
+      delete require.cache[configPath];
+    }
+  },
 };
 
 const results = Object.entries(tests).map(([name, fn]) => {
